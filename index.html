@@ -88,7 +88,7 @@
             font-size: 18px;
             cursor: pointer;
             background-color: #4CAF50;
-            color: white;
+            color: rgb(0, 0, 0);
             border-radius: 20px;
             padding: 10px 20px;
             margin: 0 5px;
@@ -98,13 +98,14 @@
         }
         .arrow:hover {
             transform: scale(1.1);
+            background-color: #6341eb;
         }
         .arrow span {
             margin-left: 10px;
         }
         .watermark {
             font-size: 12px;
-            color: #fff;
+            color: #ffffff;
             background-color: rgba(0, 0, 0, 0.5);
             padding: 5px 10px;
             border-radius: 10px;
@@ -125,11 +126,11 @@
             transition: background-color 0.3s;
         }
         .add-to-home-button:hover {
-            background-color: #357ae8;
+            background-color: #5149ee;
         }
         .thakur-button {
-            background-color: #FF5733;
-            color: #fff;
+            background-color: #f56918;
+            color: #000000;
             display: block;
             margin: 20px auto;
             padding: 10px 20px;
@@ -139,7 +140,32 @@
             transition: background-color 0.3s;
         }
         .thakur-button:hover {
-            background-color: #e04e2f;
+            background-color: #8a4edf;
+        }
+        .pdf-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .pdf-viewer iframe {
+            width: 90%;
+            height: 90%;
+            border: none;
+        }
+        .pdf-viewer .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
         }
 
         /* Media query for mobile devices */
@@ -178,7 +204,12 @@
         <button class="add-to-home-button" id="addToHomeButton" style="display: none;">Add to Home Screen</button>
         <div class="watermark">Created by RAHUL KUMAR</div> <!-- Watermark -->
     </div>
-    <button class="thakur-button" id="openThakurCalendar">THAKUR PRASAD CALENDAR</button>
+    <button class="thakur-button" id="openThakurCalendar">VIEW THAKUR PRASAD CALENDAR</button>
+
+    <div class="pdf-viewer" id="pdfViewer">
+        <span class="close" onclick="closePdfViewer()">&times;</span>
+        <iframe id="pdfIframe" src=""></iframe>
+    </div>
 
     <script>
         if ("serviceWorker" in navigator) {
@@ -287,9 +318,18 @@
         nextMonthElem.addEventListener('click', () => changeMonth(1));
 
         renderCalendar(currentMonth, currentYear);
+
         document.getElementById('openThakurCalendar').addEventListener('click', () => {
-            window.open('thakur.pdf', '_blank');
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfIframe = document.getElementById('pdfIframe');
+            pdfIframe.src = 'https://benjamin34237527405245.github.io/viewCal/'; // Replace with your calendar website URL
+            pdfViewer.style.display = 'flex';
         });
+
+        function closePdfViewer() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            pdfViewer.style.display = 'none';
+        }
     </script>
 </body>
 </html>
